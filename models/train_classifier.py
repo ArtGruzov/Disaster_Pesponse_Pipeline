@@ -1,6 +1,9 @@
+import nltk
+nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
+
 import sys
 import numpy as np
-import pandas as pd 
+import pandas as pd
 import pickle
 
 from sqlalchemy import create_engine
@@ -31,7 +34,7 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('classifier', MultiOutputClassifier(AdaBoostClassifier()))
     ])
-    
+
     parameters = {
         'vect__max_df': (0.5, 1.0),
         'vect__max_features': (None, 5000)
@@ -43,11 +46,11 @@ def build_model():
 def evaluate_model(model, X_test, Y_test):
     best_estimator = model.best_estimator_
     model_result = best_estimator.predict(X_test)
-    
+
     categories = list(Y_test.columns)
     model_result = pd.DataFrame(model_result)
     Y_test = pd.DataFrame(Y_test.values)
-    
+
     for i in range(model_result.shape[1]):
         print('PREDICTION RESULT: {}\n\n'.format(categories[i]), classification_report(Y_test[i], model_result[i]))
         print('==='*25, '\n')
@@ -63,13 +66,13 @@ def main():
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
-        
+
         print('Building model...')
         model = build_model()
-        
+
         print('Training model...')
         model.fit(X_train, Y_train)
-        
+
         print('Evaluating model...')
         evaluate_model(model, X_test, Y_test)
 
