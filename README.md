@@ -56,3 +56,6 @@ learning pipeline to categorize these events so that you can send the messages t
 
 - README.md
 ```
+### Screenshots
+![Снимок экрана 2019-04-22 в 22 08 10](https://user-images.githubusercontent.com/40493554/56552966-8e184b00-6595-11e9-83b8-b34b8fcd6b6a.png)
+![Снимок экрана 2019-04-22 в 22 07 36](https://user-images.githubusercontent.com/40493554/56552971-91133b80-6595-11e9-800b-0c8bdfb7ef16.png)
